@@ -7,9 +7,9 @@
     "dev": "node index.js"
   },
   "dependencies": {
+    "@sparticuz/chromium": "^137.0.1",
     "body-parser": "^2.2.0",
-    "chrome-aws-lambda": "^10.1.0",
     "express": "^5.1.0",
-    "puppeteer-core": "^21.3.8"
+    "puppeteer-core": "^24.11.2"
   }
 }

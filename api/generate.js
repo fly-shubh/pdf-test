@@ -1,5 +1,5 @@
-import chromium from "chrome-aws-lambda";
-import puppeteer from "puppeteer-core";
+import puppeteerCore from "puppeteer-core";
+import chromium from "@sparticuz/chromium";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -13,11 +13,15 @@ export default async function handler(req, res) {
 
   const html = `
     <!DOCTYPE html>
-    <html>
+    <html lang="en">
+ 
     <head>
-      <meta charset="utf-8">
-      <title>PDF</title>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Document</title>
+      <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/45.2.0/ckeditor5.css" />
     </head>
+ 
     <body>
       ${template}
     </body>
@@ -25,11 +29,15 @@ export default async function handler(req, res) {
   `;
 
   try {
-    const browser = await puppeteer.launch({
+    const executablePath = await chromium.executablePath(
+      "node_modules/@sparticuz/chromium/bin"
+    );
+
+    const browser = await puppeteerCore.launch({
       args: chromium.args,
-      executablePath: await chromium.executablePath,
-      headless: chromium.headless,
       defaultViewport: chromium.defaultViewport,
+      executablePath: executablePath,
+      headless: chromium.headless,
     });
 
     const page = await browser.newPage();
@@ -38,6 +46,7 @@ export default async function handler(req, res) {
     const pdf = await page.pdf({
       format: "A4",
       printBackground: true,
+      margin: { top: "1cm", bottom: "1cm", left: "1cm", right: "1cm" },
     });
 
     await browser.close();
