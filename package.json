@@ -1,0 +1,15 @@
+{
+  "name": "pdf-api-vercel",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node index.js"
+  },
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "chrome-aws-lambda": "^10.1.0",
+    "express": "^5.1.0",
+    "puppeteer-core": "^21.3.8"
+  }
+}
