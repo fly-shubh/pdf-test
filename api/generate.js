@@ -2,10 +2,6 @@ import puppeteerCore from "puppeteer-core";
 import chromium from "@sparticuz/chromium";
 
 export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*'); 
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-
 
   if (req.method !== "POST") {
     return res.status(405).send("Method Not Allowed");
@@ -34,9 +30,7 @@ export default async function handler(req, res) {
   `;
 
   try {
-    const executablePath = await chromium.executablePath(
-      "node_modules/@sparticuz/chromium/bin"
-    );
+    const executablePath = await chromium.executablePath();
 
     const browser = await puppeteerCore.launch({
       args: chromium.args,
